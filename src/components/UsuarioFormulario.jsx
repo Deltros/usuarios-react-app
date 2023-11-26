@@ -1,17 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 
-const usuarioInicialForm = {
-    username:'1',
-    password:'2',
-    email:'3',
-}
-
-export const UsuarioFormulario = ({handlerAddUsuario}) => {
+export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuarioSeleccionado }) => {
 
     const [usuarioForm, setUsuarioForm] = useState(usuarioInicialForm);
 
-    const { username, password, email } = usuarioForm;
+    const { id, username, password, email } = usuarioForm;
+
+    useEffect(() => {
+        setUsuarioForm({...usuarioSeleccionado});
+    }, [usuarioSeleccionado])
 
     const onInputChange = ({ target }) => {
 
@@ -21,7 +19,6 @@ export const UsuarioFormulario = ({handlerAddUsuario}) => {
             ...usuarioForm,
             [name]: value,
         })
-
     }
 
     const onSubmit = (event) => {
@@ -41,6 +38,10 @@ export const UsuarioFormulario = ({handlerAddUsuario}) => {
         <>
             <h5>Formulario de usuario</h5>
             <form onSubmit={onSubmit}>
+                <input type="hidden"
+                    name="id"
+                    value={id}
+                />
                 <input
                     type="text"
                     className="form-control my-3 w-75"
@@ -65,7 +66,7 @@ export const UsuarioFormulario = ({handlerAddUsuario}) => {
                 <button 
                     type="submit"
                     className="btn btn-primary">
-                        Registrar Usuario
+                        { id === 0 ? 'Registrar Usuario' : 'Editar Usuario'}
                 </button>
 
             </form>
@@ -74,5 +75,7 @@ export const UsuarioFormulario = ({handlerAddUsuario}) => {
 }
 
 UsuarioFormulario.propTypes = {
-    handlerAddUsuario: PropTypes.func.isRequired
+    handlerAddUsuario: PropTypes.func.isRequired,
+    usuarioInicialForm: PropTypes.object,
+    usuarioSeleccionado: PropTypes.object,
 }

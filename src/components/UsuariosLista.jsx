@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { UsuarioRow } from './UsuarioRow';
 
-export const UsuariosLista = ({ usuarios = [] }) => {
+export const UsuariosLista = ({ usuarios = [], handlerRemoveUsuario, handlerSeleccionarUsuarioForm }) => {
 
     return (
 
@@ -18,12 +18,15 @@ export const UsuariosLista = ({ usuarios = [] }) => {
             <tbody>
 
                 {
-                    usuarios.map(({ id, username, email }) => (
+                    usuarios.map(({ id, username, email, password }) => (
                         <UsuarioRow 
                             key = {id}
                             id={id}
                             username={username}
                             email={email}
+                            password={password}
+                            handlerRemoveUsuario={handlerRemoveUsuario}
+                            handlerSeleccionarUsuarioForm={handlerSeleccionarUsuarioForm}
                         />
                     ))
                 }
@@ -35,5 +38,7 @@ export const UsuariosLista = ({ usuarios = [] }) => {
 }
 
 UsuariosLista.propTypes = {
-    usuarios: PropTypes.array.isRequired
+    usuarios: PropTypes.array.isRequired,
+    handlerRemoveUsuario: PropTypes.func.isRequired,
+    handlerSeleccionarUsuarioForm: PropTypes.func.isRequired,
 }

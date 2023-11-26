@@ -1,22 +1,35 @@
 import PropTypes from 'prop-types';
 
-export const UsuarioRow = ({ id, username, email }) => {
+export const UsuarioRow = ({ id, username, email, password, handlerRemoveUsuario, handlerSeleccionarUsuarioForm }) => {
+
     return (
         <>
             <tr>
                 <td>{ id }</td>
                 <td>{ username }</td>
                 <td>{ email }</td>
-                <td><button 
+                <td>
+                    <button 
                         type='button'
-                        className='btn btn-secondary btn-sm'>
+                        className='btn btn-secondary btn-sm'
+                        onClick={
+                            () => handlerSeleccionarUsuarioForm(
+                                {
+                                    id:id,
+                                    username: username,
+                                    email:email,
+                                    password:password,
+                                }
+                            )
+                        }>
                             Update
                     </button>
                 </td>
                 <td>
                     <button
                         type='button'
-                        className='btn btn-danger btn-sm'>
+                        className='btn btn-danger btn-sm'
+                        onClick={() => handlerRemoveUsuario(id)}>
                             Eliminar
                     </button>
                 </td>
@@ -29,4 +42,7 @@ UsuarioRow.propTypes = {
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    handlerRemoveUsuario: PropTypes.func.isRequired,
+    handlerSeleccionarUsuarioForm: PropTypes.func.isRequired,
 }

@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { UsuarioFormulario } from "./components/UsuarioFormulario";
 import { UsuariosLista } from "./components/UsuariosLista";
 import { usuariosReducer } from "./reducers/usuariosReducer";
@@ -12,15 +12,44 @@ const usuariosInicial = [
     }
 ];
 
+const usuarioInicialForm = {
+    id: 0,
+    username:'',
+    password:'',
+    email:'',
+}
+
 export const UsuariosApp = () => {
 
     const [usuarios, dispatch] = useReducer(usuariosReducer, usuariosInicial);
 
+    const [ usuarioSeleccionado, setUsuarioSeleccionado ] = useState(usuarioInicialForm);
+
     const handlerAddUsuario = (usuario) => {
+
+        let type;
+
+        if (usuario.id === 0) {
+            type = 'addUsuario';
+        } else {
+            type = 'updateUsuario';
+        }
+
         dispatch({
-            type: 'addUsuario',
+            type: type,
             payload: usuario,
         })
+    }
+
+    const handlerRemoveUsuario = (id) => {
+        dispatch({
+            type: 'removeUsuario',
+            payload: id,
+        })
+    }
+
+    const handlerSeleccionarUsuarioForm = (usuario) => {
+        setUsuarioSeleccionado({...usuario});
     }
 
     return (
@@ -30,11 +59,29 @@ export const UsuariosApp = () => {
             <div className="row my-4">
 
                 <div className="col">
-                    <UsuarioFormulario handlerAddUsuario={handlerAddUsuario} />
+                    <UsuarioFormulario
+                         handlerAddUsuario={handlerAddUsuario} 
+                         usuarioInicialForm={usuarioInicialForm}
+                         usuarioSeleccionado={usuarioSeleccionado}
+                    />
                 </div>
 
                 <div className="col">
-                    <UsuariosLista usuarios={usuarios}/>
+
+                    { usuarios.length == 0
+                        ?
+                            <div className="alert alert-warning">
+                                No hay usuarios en el sistema
+                            </div>
+                    
+                        :    
+                            <UsuariosLista
+                                usuarios={usuarios}
+                                handlerRemoveUsuario={handlerRemoveUsuario}
+                                handlerSeleccionarUsuarioForm = {handlerSeleccionarUsuarioForm}
+                            />
+                    }
+
                 </div>
 
             </div>
