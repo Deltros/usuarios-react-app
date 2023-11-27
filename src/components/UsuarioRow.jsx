@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const UsuarioRow = ({ id, username, email, password, handlerRemoveUsuario, handlerSeleccionarUsuarioForm }) => {
+export const UsuarioRow = ({ id, username, email, handlerRemoveUsuario, handlerSeleccionarUsuarioForm }) => {
 
     return (
         <>
@@ -18,7 +18,6 @@ export const UsuarioRow = ({ id, username, email, password, handlerRemoveUsuario
                                     id:id,
                                     username: username,
                                     email:email,
-                                    password:password,
                                 }
                             )
                         }>
@@ -42,7 +41,6 @@ UsuarioRow.propTypes = {
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
     handlerRemoveUsuario: PropTypes.func.isRequired,
     handlerSeleccionarUsuarioForm: PropTypes.func.isRequired,
 }

@@ -24,7 +24,7 @@ export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuar
     const onSubmit = (event) => {
         event.preventDefault();
 
-        if (!username || !password || !email) {
+        if (!username || (!password && id===0) || !email) {
             alert("Debe llenar todos los campos");
             return;
         }
@@ -49,13 +49,16 @@ export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuar
                     name="username"
                     value={username}
                     onChange={ onInputChange }/>
-                <input
-                    type="password"
-                    className="form-control my-3 w-75"
-                    placeholder="Contraseña"
-                    name="password"
-                    value={password}
-                    onChange={ onInputChange }/>
+
+                { id > 0 ||
+                    <input
+                        type="password"
+                        className="form-control my-3 w-75"
+                        placeholder="Contraseña"
+                        name="password"
+                        value={password}
+                        onChange={ onInputChange }/> 
+                }
                 <input
                     type="text"
                     className="form-control my-3 w-75"
