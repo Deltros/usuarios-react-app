@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
+import Swal from "sweetalert2";
 
 export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuarioSeleccionado }) => {
 
@@ -25,7 +26,11 @@ export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuar
         event.preventDefault();
 
         if (!username || (!password && id===0) || !email) {
-            alert("Debe llenar todos los campos");
+            Swal.fire({
+                title: "Error al crear un nuevo usuario",
+                text: "Debe llenar todos los campos solicitados",
+                icon: "error"
+            });
             return;
         }
 
