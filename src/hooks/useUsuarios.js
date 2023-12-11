@@ -21,18 +21,12 @@ const usuarioInicialForm = {
 export const useUsuarios = () => {
 
     const [ usuarios, dispatch ] = useReducer(usuariosReducer, usuariosInicial);
-
     const [ usuarioSeleccionado, setUsuarioSeleccionado ] = useState(usuarioInicialForm);
+    const [ formularioVisible, setFormularioVisible ] = useState(false);
 
     const handlerAddUsuario = (usuario) => {
 
-        let type;
-
-        if (usuario.id === 0) {
-            type = 'addUsuario';
-        } else {
-            type = 'updateUsuario';
-        }
+        const type = (usuario.id === 0) ? 'addUsuario' : 'updateUsuario';
 
         dispatch({
             type: type,
@@ -46,6 +40,8 @@ export const useUsuarios = () => {
             text: `El usuario fue ${mensaje_usuario} con éxito`,
             icon: `success`
         });
+
+        handlerCerrarFormulario();
     }
 
     const handlerRemoveUsuario = (id) => {
@@ -77,14 +73,27 @@ export const useUsuarios = () => {
 
     const handlerSeleccionarUsuarioForm = (usuario) => {
         setUsuarioSeleccionado({...usuario});
+        setFormularioVisible(true);
+    }
+
+    const handlerAbrirFormulario = () => {
+        setFormularioVisible(true);
+    }
+
+    const handlerCerrarFormulario = () => {
+        setFormularioVisible(false);
+        setUsuarioSeleccionado(usuarioInicialForm);
     }
 
     return {
         usuarios,
         usuarioSeleccionado,
         usuarioInicialForm,
+        formularioVisible,
         handlerAddUsuario,
         handlerRemoveUsuario,
-        handlerSeleccionarUsuarioForm
+        handlerSeleccionarUsuarioForm,
+        handlerAbrirFormulario,
+        handlerCerrarFormulario,
     }
 }

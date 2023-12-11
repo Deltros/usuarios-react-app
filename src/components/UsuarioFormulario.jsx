@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import Swal from "sweetalert2";
 
-export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuarioSeleccionado }) => {
+export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuarioSeleccionado, handlerCerrarFormulario }) => {
 
     const [usuarioForm, setUsuarioForm] = useState(usuarioInicialForm);
 
@@ -37,6 +37,13 @@ export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuar
         handlerAddUsuario(usuarioForm);
 
         setUsuarioForm(usuarioInicialForm);
+
+        handlerCerrarFormulario();
+    }
+
+    const onCerrarFormulario = () => {
+        setUsuarioForm(usuarioInicialForm);
+        handlerCerrarFormulario();
     }
 
     return (
@@ -74,7 +81,13 @@ export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuar
                 <button 
                     type="submit"
                     className="btn btn-primary">
-                        { id === 0 ? 'Registrar Usuario' : 'Editar Usuario'}
+                        { id === 0 ? 'Registrar nuevo usuario' : 'Guardar cambios'}
+                </button>
+                <button 
+                        className="btn btn-primary mx-2"
+                        type="button"
+                        onClick={() => onCerrarFormulario()}>
+                            Cerrar
                 </button>
 
             </form>
@@ -86,4 +99,5 @@ UsuarioFormulario.propTypes = {
     handlerAddUsuario: PropTypes.func.isRequired,
     usuarioInicialForm: PropTypes.object,
     usuarioSeleccionado: PropTypes.object,
+    handlerCerrarFormulario: PropTypes.func.isRequired,
 }
