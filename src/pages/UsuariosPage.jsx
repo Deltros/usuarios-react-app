@@ -16,6 +16,7 @@ export const UsuariosPages = () => {
         handlerCerrarFormulario,
     } = useUsuarios();
 
+
     return (
         <>
             { !formularioVisible || 
@@ -26,6 +27,7 @@ export const UsuariosPages = () => {
                     usuarioSeleccionado={usuarioSeleccionado}
                 />
             }
+
             <div className="container my-4">
                 <h2>Usuarios</h2>
 
