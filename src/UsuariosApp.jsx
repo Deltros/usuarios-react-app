@@ -1,23 +1,30 @@
-import { UsuariosPages } from "./pages/UsuariosPage";
 import { LoginPage } from "./auth/pages/LoginPage";
-import { NavBar } from "./components/layout/NavBar";
 import { useAuth } from "./auth/hooks/useAuth";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { UsuarioRoutes } from "./routes/UsuarioRoutes";
 
 export const UsuariosApp = () => {
 
     const {login, handlerLogin, handlerLogout} = useAuth();
 
     return (
-        <>
+        <Routes>
             { login.isAuth 
                 ? 
-                    <>
-                        <NavBar login={login} handlerLogout={handlerLogout}></NavBar>
-                        <UsuariosPages/>
-                    </>
+                    <Route path='/*' element={ <UsuarioRoutes 
+                        login={login} 
+                        handlerLogout={handlerLogout}/> }
+                    />
 
-                : <LoginPage handlerLogin={handlerLogin}/>
+                : 
+                    <>
+                        <Route path='/login' 
+                            element={ <LoginPage handlerLogin={handlerLogin}/> }
+                        />
+
+                        <Route path="/*" element={ <Navigate to="/login"/> }/>
+                    </>
             }
-        </>
+        </Routes>
     );
 }

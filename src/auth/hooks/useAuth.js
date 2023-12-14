@@ -2,6 +2,7 @@ import { useReducer } from "react";
 import { loginReducer } from "../pages/reducers/loginReducer";
 import Swal from "sweetalert2";
 import { loginUsuario } from "../services/authServices";
+import { useNavigate } from "react-router-dom";
 
 // Si viene definido en la sesion lo retoma, osino crea uno nuevo
 const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
@@ -12,6 +13,8 @@ const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
 export const useAuth = () => {
     
     const [login, dispatch] = useReducer(loginReducer, initialLogin);
+
+    const navigate = useNavigate();
 
     const handlerLogin = ({ username, password }) => {
 
@@ -30,6 +33,8 @@ export const useAuth = () => {
                 isAuth: true,
                 user
             }));
+
+            navigate('/users');
         } else {
             Swal.fire('Error de validacion', 'Nombre de usuario o contraseña incorrectos', 'error');
         }
