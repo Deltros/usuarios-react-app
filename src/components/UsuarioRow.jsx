@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 export const UsuarioRow = ({ id, username, email, handlerRemoveUsuario, handlerSeleccionarUsuarioForm }) => {
 
@@ -23,6 +24,12 @@ export const UsuarioRow = ({ id, username, email, handlerRemoveUsuario, handlerS
                         }>
                             Update
                     </button>
+                </td>
+                <td>
+                    <NavLink className={'btn btn-secondary btn-sm'} 
+                        to={'/users/edit/' + id} >
+                            update route
+                        </NavLink>
                 </td>
                 <td>
                     <button

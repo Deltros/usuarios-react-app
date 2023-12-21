@@ -1,10 +1,8 @@
+/* eslint-disable react/prop-types */
 import { UsuarioModalFormulario } from "../components/UsuarioModalFormulario";
 import { UsuariosLista } from "../components/UsuariosLista";
-import { useUsuarios } from "../hooks/useUsuarios";
 
-export const UsuariosPages = () => {
-
-    const {         
+export const UsuariosPages = ({         
         usuarios,
         usuarioSeleccionado,
         usuarioInicialForm,
@@ -14,8 +12,7 @@ export const UsuariosPages = () => {
         handlerSeleccionarUsuarioForm,
         handlerAbrirFormulario,
         handlerCerrarFormulario,
-    } = useUsuarios();
-
+    }) => {
 
     return (
         <>

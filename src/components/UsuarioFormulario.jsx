@@ -48,7 +48,6 @@ export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuar
 
     return (
         <>
-            <h5>Formulario de usuario</h5>
             <form onSubmit={onSubmit}>
                 <input type="hidden"
                     name="id"
@@ -83,12 +82,15 @@ export const UsuarioFormulario = ({ handlerAddUsuario, usuarioInicialForm, usuar
                     className="btn btn-primary">
                         { id === 0 ? 'Registrar nuevo usuario' : 'Guardar cambios'}
                 </button>
-                <button 
+
+                { !handlerCerrarFormulario || 
+                    <button 
                         className="btn btn-primary mx-2"
                         type="button"
                         onClick={() => onCerrarFormulario()}>
                             Cerrar
-                </button>
+                    </button>
+                }
 
             </form>
         </>
@@ -99,5 +101,5 @@ UsuarioFormulario.propTypes = {
     handlerAddUsuario: PropTypes.func.isRequired,
     usuarioInicialForm: PropTypes.object,
     usuarioSeleccionado: PropTypes.object,
-    handlerCerrarFormulario: PropTypes.func.isRequired,
+    handlerCerrarFormulario: PropTypes.func,
 }

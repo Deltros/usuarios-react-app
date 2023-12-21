@@ -12,6 +12,7 @@ export const UsuariosLista = ({ usuarios = [], handlerRemoveUsuario, handlerSele
                     <th>nombre</th>
                     <th>email</th>
                     <th>update</th>
+                    <th>update route</th>
                     <th>eliminar</th>
                 </tr>
             </thead>
